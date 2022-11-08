@@ -38,8 +38,8 @@ namespace GameOfLife
 
             SetRandomPattern();
             InitCellsVisuals();
-            UpdateGraphics();
-            
+            //UpdateGraphics();
+
         }
 
 
@@ -78,13 +78,11 @@ namespace GameOfLife
             }
         }
 
-        public void UpdateGraphics()
+        public void UpdateGraphics(int x, int y)
         {
-            for (int i = 0; i < SizeX; i++)
-                for (int j = 0; j < SizeY; j++)
-                    cellsVisuals[i, j].Fill = cells[i, j].IsAlive
-                                                  ? (cells[i, j].Age < 2 ? Brushes.White : Brushes.DarkGray)
-                                                  : Brushes.Gray;
+            cellsVisuals[x, y].Fill = cells[x, y].IsAlive
+                ? (cells[x, y].Age < 2 ? Brushes.White : Brushes.DarkGray)
+                : Brushes.Gray;
         }
 
         public void InitCellsVisuals()
@@ -102,8 +100,8 @@ namespace GameOfLife
 
                     cellsVisuals[i, j].MouseMove += MouseMove;
                     cellsVisuals[i, j].MouseLeftButtonDown += MouseMove;
-                 }
-            UpdateGraphics();
+                    UpdateGraphics(i, j);
+                }           
                     
         }
         
@@ -127,9 +125,8 @@ namespace GameOfLife
                 {
                     cells[i, j].IsAlive = nextGenerationCells[i, j].IsAlive;
                     cells[i, j].Age = nextGenerationCells[i, j].Age;
+                    UpdateGraphics(i, j);
                 }
-
-            UpdateGraphics();
         }
         
 
