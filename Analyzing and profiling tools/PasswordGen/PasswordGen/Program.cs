@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Security.Cryptography;
+using System.Text;
 
 class Program
 {
@@ -20,6 +21,27 @@ class Program
 
     public static string GeneratePasswordHashUsingSaltNotOptimized(string passwordText, byte[] salt)
     {
+        var byteArr = Encoding.UTF8.GetBytes(passwordText);
+        using (SHA256CryptoServiceProvider provider = new())
+        {
+            byte[] output = provider.ComputeHash(byteArr.Concat(salt).ToArray());
+
+            //for (int iteration = 1; iteration < 100000; iteration++)
+            //{
+            //    output = provider.ComputeHash(output.Concat(byteArr).Concat(salt).ToArray());
+            //}
+
+            Parallel.For(1, 10000, (i) =>
+            {
+
+                output = provider.ComputeHash(output.Concat(byteArr).Concat(salt).ToArray());
+
+            });
+
+            return Convert.ToBase64String(output);
+        }
+
+
 
         var iterate = 10000;
         var pbkdf2 = new Rfc2898DeriveBytes(passwordText, salt, iterate);
@@ -39,7 +61,7 @@ class Program
     {
 
         var iterate = 10000;
-        var pbkdf2 = new Rfc2898DeriveBytes(passwordText, salt, iterate);
+        var pbkdf2 = new Rfc2898DeriveBytes(passwordText, salt, iterate, HashAlgorithmName.SHA1);
         byte[] hash = pbkdf2.GetBytes(20);
 
         byte[] hashBytes = new byte[36];
