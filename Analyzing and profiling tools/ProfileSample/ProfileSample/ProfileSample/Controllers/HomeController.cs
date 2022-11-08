@@ -13,26 +13,36 @@ namespace ProfileSample.Controllers
     {
         public ActionResult Index()
         {
-            var context = new ProfileSampleEntities();
-
-            var sources = context.ImgSources.Take(20).Select(x => x.Id);
-            
+            //optimized
             var model = new List<ImageModel>();
-
-            foreach (var id in sources)
+            using (var context = new ProfileSampleEntities())
             {
-                var item = context.ImgSources.Find(id);
-
-                var obj = new ImageModel()
-                {
-                    Name = item.Name,
-                    Data = item.Data
-                };
-
-                model.Add(obj);
-            } 
+                model = context.ImgSources.Take(20).Select(x => new ImageModel { Name = x.Name, Data = x.Data }).ToList();
+            }
 
             return View(model);
+
+            //not optimized
+            //var context = new ProfileSampleEntities();
+
+            //var sources = context.ImgSources.Take(20).Select(x => x.Id);
+
+            //var model = new List<ImageModel>();
+
+            //foreach (var id in sources)
+            //{
+            //    var item = context.ImgSources.Find(id);
+
+            //    var obj = new ImageModel()
+            //    {
+            //        Name = item.Name,
+            //        Data = item.Data
+            //    };
+
+            //    model.Add(obj);
+            //} 
+
+            //return View(model);
         }
 
         public ActionResult Convert()
