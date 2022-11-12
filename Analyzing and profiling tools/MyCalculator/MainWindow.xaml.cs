@@ -53,7 +53,7 @@ namespace MyCalculatorv1
             //double num2 = Convert.ToDouble(this.tb.Text.Substring(0, num1));
             //double num3 = Convert.ToDouble(this.tb.Text.Substring(num1 + 1, this.tb.Text.Length - num1 - 1));
 
-            var test = this.tb.Text.Substring(0, num1);
+      
       if ( !double.TryParse(this.tb.Text.Substring(0, num1), out var num2) || 
            !double.TryParse(this.tb.Text.Substring(num1 + 1, this.tb.Text.Length - num1 - 1), out var num3))
       {
