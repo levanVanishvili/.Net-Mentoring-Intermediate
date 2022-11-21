@@ -39,7 +39,9 @@ namespace craft_beer.Controllers
         {
             var beer = _beerService.GetBeerById(id);
 
-            return Ok(beer);
+            return beer is not null
+                ? Ok(beer)
+                : BadRequest();
         }
 
         [HttpPut]
@@ -48,7 +50,9 @@ namespace craft_beer.Controllers
         {
             var updatedBeer = _beerService.UpdateBeerById(id, beer);
 
-            return Ok(updatedBeer);
+            return updatedBeer is not null
+                ? Ok(updatedBeer)
+                : BadRequest();
         }
 
         [HttpDelete]
@@ -72,7 +76,9 @@ namespace craft_beer.Controllers
         public IActionResult GetAllBeerByPaging([FromQuery] PagingParams pagingParams)
         {
             var filteredBeer = _beerService.GetAllBeerWithPaging(pagingParams);
-            return Ok(filteredBeer);
+            return filteredBeer is not null
+                ? Ok(filteredBeer)
+                : BadRequest();
         }
 
     }

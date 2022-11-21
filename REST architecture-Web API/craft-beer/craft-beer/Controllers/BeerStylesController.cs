@@ -29,7 +29,9 @@ namespace craft_beer.Controllers
         public IActionResult GetAllBeerStyles()
         {
             var allBeerStyles = _beerStyleService.GetAllBeerStyles();
-            return Ok(allBeerStyles);
+            return allBeerStyles is not null 
+                ? Ok(allBeerStyles)
+                : BadRequest();
         }
 
         [HttpGet]
@@ -38,7 +40,9 @@ namespace craft_beer.Controllers
         {
             var beerStyle = _beerStyleService.GetBeerStyleById(id);
 
-            return Ok(beerStyle);
+            return beerStyle is not null
+                ? Ok(beerStyle)
+                : BadRequest();
         }
 
         [HttpPut]
@@ -47,7 +51,9 @@ namespace craft_beer.Controllers
         {
             var updatedBeerStyles = _beerStyleService.UpdateBeerStyleById(id, style);
 
-            return Ok(updatedBeerStyles);
+            return updatedBeerStyles is not null
+                ? Ok(updatedBeerStyles)
+                : BadRequest();
         }
 
         [HttpDelete]
