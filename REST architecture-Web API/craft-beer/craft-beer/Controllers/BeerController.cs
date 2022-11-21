@@ -17,7 +17,7 @@ namespace craft_beer.Controllers
         }
 
         [HttpPost]
-        [Route("add-beer")]
+        [Route("create")]
         public IActionResult AddBeer([FromBody]beer beer) 
         {
             _beerService.AddBeer(beer);
@@ -26,7 +26,7 @@ namespace craft_beer.Controllers
         }
 
         [HttpGet]
-        [Route("get-all-beer")]
+        [Route("beers")]
         public IActionResult GetAllBeer() 
         {
             var allBeer = _beerService.GetAllBeer();
@@ -34,7 +34,7 @@ namespace craft_beer.Controllers
         }
 
         [HttpGet]
-        [Route("get-beer/{id}")]
+        [Route("{id}")]
         public IActionResult GetBeerById(int id)
         {
             var beer = _beerService.GetBeerById(id);
@@ -43,7 +43,7 @@ namespace craft_beer.Controllers
         }
 
         [HttpPut]
-        [Route("update-beer/{id}")]
+        [Route("update/{id}")]
         public IActionResult UpdateBeerById(int id, [FromBody]beer beer)
         {
             var updatedBeer = _beerService.UpdateBeerById(id, beer);
@@ -52,7 +52,7 @@ namespace craft_beer.Controllers
         }
 
         [HttpDelete]
-        [Route("delete-beer/{id}")]
+        [Route("delete/{id}")]
         public IActionResult DeleteBeerById (int id)
         {
             _beerService.DeleteBeerById(id) ;
@@ -61,14 +61,14 @@ namespace craft_beer.Controllers
         }
 
         [HttpGet]
-        [Route("get-beerByStyleId")]
+        [Route("find/beerByStyleId")]
         public ActionResult<IEnumerable<beer>> GetBeerByStyleId([FromQuery] beer beer)
         {
             return _beerService.GetAllBeer().Where(b => b.BeerStyleId == beer.BeerStyleId).ToList();
         }
 
         [HttpGet]
-        [Route("get-beerByPaging")]
+        [Route("filter/beerByPaging")]
         public IActionResult GetAllBeerByPaging([FromQuery] PagingParams pagingParams)
         {
             var filteredBeer = _beerService.GetAllBeerWithPaging(pagingParams);

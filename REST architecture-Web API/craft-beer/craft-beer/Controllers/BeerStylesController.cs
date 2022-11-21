@@ -16,7 +16,7 @@ namespace craft_beer.Controllers
         }
 
         [HttpPost]
-        [Route("add-BeerStyle")]
+        [Route("create")]
         public IActionResult AddBeerStyle([FromBody] BeerStyle style)
         {
             _beerStyleService.AddBeerStyle(style);
@@ -25,7 +25,7 @@ namespace craft_beer.Controllers
         }
 
         [HttpGet]
-        [Route("get-all-BeerStyles")]
+        [Route("BeerStyles")]
         public IActionResult GetAllBeerStyles()
         {
             var allBeerStyles = _beerStyleService.GetAllBeerStyles();
@@ -33,7 +33,7 @@ namespace craft_beer.Controllers
         }
 
         [HttpGet]
-        [Route("get-BeerStyle/{id}")]
+        [Route("{id}")]
         public IActionResult GetBeerStyleById(int id)
         {
             var beerStyle = _beerStyleService.GetBeerStyleById(id);
@@ -42,7 +42,7 @@ namespace craft_beer.Controllers
         }
 
         [HttpPut]
-        [Route("update-BeerStyle/{id}")]
+        [Route("update/{id}")]
         public IActionResult UpdateBeerStyleById(int id, [FromBody] BeerStyle style)
         {
             var updatedBeerStyles = _beerStyleService.UpdateBeerStyleById(id, style);
@@ -51,7 +51,7 @@ namespace craft_beer.Controllers
         }
 
         [HttpDelete]
-        [Route("delete-BeerStyle/{id}")]
+        [Route("delete/{id}")]
         public IActionResult DeleteBeerStyleById(int id)
         {
             _beerStyleService.DeleteBeerStyleById(id);
