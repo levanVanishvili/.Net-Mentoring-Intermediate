@@ -36,9 +36,9 @@ namespace craft_beer.Controllers
         [Route("get-BeerStyle/{id}")]
         public IActionResult GetBeerStyleById(int id)
         {
-            var beer = _beerStyleService.GetBeerStyleById(id);
+            var beerStyle = _beerStyleService.GetBeerStyleById(id);
 
-            return Ok(beer);
+            return Ok(beerStyle);
         }
 
         [HttpPut]

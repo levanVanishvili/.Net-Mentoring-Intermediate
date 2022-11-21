@@ -34,7 +34,7 @@ namespace craft_beer.Services
 
         }
 
-        public beer GetBeerById(int beerId) => _dbContext.Beers.FirstOrDefault(x => x.Id == beerId);
+        public beer? GetBeerById(int beerId) => _dbContext?.Beers.FirstOrDefault(x => x.Id == beerId);
 
         public beer UpdateBeerById(int Id, beer beer)
         {
@@ -48,7 +48,7 @@ namespace craft_beer.Services
                 _dbContext.SaveChanges();
             }
 
-            return _beer;
+            return _beer!;
         }
 
         public void DeleteBeerById(int id)
