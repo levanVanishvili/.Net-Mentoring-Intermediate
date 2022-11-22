@@ -24,7 +24,7 @@ namespace craft_beer.Services
 
         public List<BeerStyle> GetAllBeerStyles() => _dbContext.BeerStyles.ToList();
 
-        public BeerStyle GetBeerStyleById(int StyleId) => _dbContext.BeerStyles.FirstOrDefault(x => x.Id == StyleId);
+        public BeerStyle? GetBeerStyleById(int StyleId) => _dbContext.BeerStyles.FirstOrDefault(x => x.Id == StyleId);
 
         public BeerStyle UpdateBeerStyleById(int Id, BeerStyle style)
         {
@@ -37,7 +37,7 @@ namespace craft_beer.Services
                 _dbContext.SaveChanges();
             }
 
-            return _style;
+            return _style!;
         }
 
         public void DeleteBeerStyleById(int id)
